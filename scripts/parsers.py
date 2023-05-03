@@ -86,7 +86,7 @@ def sample_parser():
     parser.add_argument('--condition', default='', type=str)
     parser.add_argument('--entropy_cutoff', default=5, type=float)
     parser.add_argument('--n_samples', default=30000, type=int)
-    parser.add_argument('--n_samples_per_batch', default=100, type=int)
+    parser.add_argument('--n_samples_per_batch', default=128, type=int)
     ### Save Parameters
     parser.add_argument('--save_path', default=None, type=str)
 

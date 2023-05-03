@@ -26,9 +26,9 @@ class VAEShell():
         self.params = params
         self.name = name
         if 'BATCH_SIZE' not in self.params.keys():
-            self.params['BATCH_SIZE'] = 500
+            self.params['BATCH_SIZE'] = 512
         if 'BATCH_CHUNKS' not in self.params.keys():
-            self.params['BATCH_CHUNKS'] = 5
+            self.params['BATCH_CHUNKS'] = 4
         if 'BETA_INIT' not in self.params.keys():
             self.params['BETA_INIT'] = 1e-8
         if 'BETA' not in self.params.keys():
@@ -50,6 +50,10 @@ class VAEShell():
                 self.params['CHAR_WEIGHTS'] = torch.ones(self.vocab_size, dtype=torch.float)
         self.loss_func = vae_loss
         self.data_gen = vae_data_gen
+
+        # TODO:fix
+        self.params['BATCH_SIZE'] = 512
+        self.params['BATCH_CHUNKS'] = 4
 
         ### Sequence length hard-coded into model
         self.src_len = 126
@@ -721,7 +725,6 @@ class EncoderDecoder(nn.Module):
     def forward(self, src, tgt, src_mask, tgt_mask):
         "Take in and process masked src and tgt sequences"
         mem, mu, logvar, pred_len = self.encode(src, src_mask)
-        print(mem.shape)
 
         # mem, mu, logvar, pred_len = self.diffuser(mem, src_mask, tgt, tgt_mask)
 
