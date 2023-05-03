@@ -711,6 +711,7 @@ class EncoderDecoder(nn.Module):
     def __init__(self, encoder, decoder, src_embed, tgt_embed, generator, property_predictor):
         super().__init__()
         self.encoder = encoder
+        # self.diffuser
         self.decoder = decoder
         self.src_embed = src_embed
         self.tgt_embed = tgt_embed
@@ -720,6 +721,10 @@ class EncoderDecoder(nn.Module):
     def forward(self, src, tgt, src_mask, tgt_mask):
         "Take in and process masked src and tgt sequences"
         mem, mu, logvar, pred_len = self.encode(src, src_mask)
+        print(mem.shape)
+
+        # mem, mu, logvar, pred_len = self.diffuser(mem, src_mask, tgt, tgt_mask)
+
         x = self.decode(mem, src_mask, tgt, tgt_mask)
         x = self.generator(x)
         if self.property_predictor is not None:

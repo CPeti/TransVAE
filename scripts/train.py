@@ -7,6 +7,10 @@ import pandas as pd
 
 import torch
 
+import sys
+# caution: path[0] is reserved for script path (or '' in REPL)
+sys.path.insert(1, 'D:/src/repos/TransVAE')
+
 from transvae.trans_models import TransVAE
 from transvae.rnn_models import RNN, RNNAttn
 from scripts.parsers import model_init, train_parser
